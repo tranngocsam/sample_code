@@ -1,0 +1,53 @@
+<section class="banner banner-primary">
+  <div class="container">
+    <div class="search-result text-center">
+      <h1 class="text-center">What do you want to be?</h1>
+      <a (click)="openExamples($event)" class="popup" href="#">See some examples</a>
+
+      <div class="form">
+        <autocomplete [options]="results" (onKeyup)="onKeyup($event)"></autocomplete>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="example_careers" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-6 interests">
+            <div class="icon">
+              <img src="/assets/thumbsupb.png" />
+            </div>
+            <h3>Interests such as</h3>
+            <ul class="list-such">
+              <li><a href="/search?match=animal-care-and-service-workers">Animals</a></li>
+              <li><a href="/search?match=water-transportation-workers">Water</a></li>
+              <li><a href="/search?match=food-processing-workers">Food</a></li>
+              <li><a href="/search?match=computer-occupations">Information Technology</a></li>
+              <li><a href="/search?match=law-enforcement-workers">Law Enforcement</a></li>
+              <li><a href="/search?match=advertising-marketing-promotions-public-relations-and-sales-managers">Marketing</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6">
+            <div class="icon">
+              <img src="/assets/briefcaseb.png" />
+            </div>
+            <h3>Careers such as</h3>
+            <ul class="list-such">
+              <li><a href="/search?search=doctor">Doctor</a></li>
+              <li><a href="/search?search=teacher">Teacher</a></li>
+              <li><a href="/search?search=architect">Architect</a></li>
+              <li><a href="/search?search=biologist">Biologist</a></li>
+              <li><a href="/search?search=detective">Detective</a></li>
+              <li><a href="/search?search=photographer">Photographer</a></li>
+            </ul>
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</section>

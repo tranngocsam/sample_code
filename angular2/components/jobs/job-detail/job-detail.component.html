@@ -1,0 +1,29 @@
+<div className="container show-collapse" ref="result_details">
+  <div className="row">
+    <div className="col-sm-12 result-details">
+      <div className="">
+        <div className="wells">
+          <div className="well-header career-header">
+            <div className="simple-table">
+              <div className="simple-table-cell represent-image">
+                
+              </div>
+              <div className="simple-table-cell career-brief-text">
+                <h3 *ngIf="career">
+                  {{career.title}}
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div className="row well-content">
+            <div className="row">
+              <div className="col-md-12" *ngIf="career">
+                {{career.title}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

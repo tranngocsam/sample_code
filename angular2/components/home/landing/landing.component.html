@@ -1,0 +1,57 @@
+<div class="child-container">
+  <sub-navigation></sub-navigation>
+  <primary-banner></primary-banner>
+
+  <section class="work">
+    <div class="container">
+      <div class="col-sm-6 left-work">
+        <div class="col-sm-4 text-center">
+            <div class="box" id="Interests">
+              <img src="/assets/thumbsupb.png" />
+              Interests
+            </div>
+        </div>
+        <div class="col-sm-4 text-center">
+            <div class="box" id="Interests">
+              <img src="/assets/briefcaseb.png" />
+              Careers
+            </div>
+        </div>
+        <div class="col-sm-4 text-center">
+            <div class="box" id="in-path">
+              <img class="path" src="/assets/footsteps.png" />
+              Path
+            </div>
+        </div>
+      </div>
+      <div class="col-sm-6 right-work">
+        <h2>MyMentor Makes a Difference</h2>
+        <p>MyMentor is a free resource for students and job seekers to explore life decisions about career opportunities, with the guidance of an online  professional community.</p>
+        <div class="row">
+          <div class="col-md-6">
+            <button class="btn btn-primary btn-call-to-action" *ngIf="!currentUser || !currentUser.id">Become a Mentor</button>
+            <button class="btn btn-primary btn-call-to-action" *ngIf="currentUser && currentUser.id">Our Mentors</button>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-primary btn-call-to-action" *ngIf="!currentUser || !currentUser.id">Find a Mentor</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="feature" *ngIf="featuredCareer">
+    <div class="container">
+      <div class="left-feature">
+        <h2>Featured Career</h2>
+        <span>{{featuredCareer.title}}</span>
+        <div class="bls-citation"></div>
+        <button class="btn btn-primary btn-call-to-action mentor">Learn More</button>
+      </div>
+      <div class="right-feature">
+        <div class="image-container">
+          <img class="featured-career-image" alt="{{featuredCareer.slug}}" src="{{imageUrl}}" />
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

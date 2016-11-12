@@ -1,0 +1,18 @@
+<div class="header">
+  <div class="container">
+    <nav role="navigation" class="navbar navbar-default">
+      <div class="container">
+        <div class="row">
+          <div class="navbar-collapse navbar-ex1-collapse">
+            <ul class="nav nav-pills pull-right">
+              <li *ngIf="!currentUser || !currentUser.id"><a routerLink="/login">Login</a></li>
+              <li *ngIf="currentUser && currentUser.id"><a routerLink="/login">Logout</a></li>
+            </ul>
+            <a href="#" class="navbar-brand"><img src="/assets/my_mentor_logo_blue.png" /></a>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+  </div>
+</div>
