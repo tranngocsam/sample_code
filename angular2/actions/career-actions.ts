@@ -1,10 +1,3 @@
-/**
- * Copyright 2016, Fullstack.io, LLC.
- *
- * This source code is licensed under the MIT-style license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
 import { Action, ActionCreator } from 'redux';
 import store from '../app-store';
 import Career from '../models/career';
@@ -17,19 +10,21 @@ export interface Question {
   cover?: any
 }
 
+export interface PaginationInfo {
+  count: number;
+  per_page: number;
+  current_page: number;
+  total_pages: number;
+};
+
 export const SET_QUESTIONS = '[Job] Set Questions';
 export const SET_QUESTIONS_LOADING = '[Job] Set Questions Loading';
 export const SET_QUESTIONS_LOADING_ERROR = '[Job] Set Questions Loading Error';
 export interface SetQuestionsAction extends Action {
   payload: {
     results: Question[];
-    pagination?: {
-      count: number;
-      per_page: number;
-      current_page: number;
-      total_pages: number;
-    };
-  };
+    pagination?: PaginationInfo;
+  }
 }
 export const setQuestions: ActionCreator<SetQuestionsAction> =
   (responseData) => ({
@@ -38,15 +33,25 @@ export const setQuestions: ActionCreator<SetQuestionsAction> =
   });
 
 
+  export interface Interest {
+    id?: number;
+    title?: string;
+    created_at?: Date;
+    updated_at?: Date;
+    slug?: string;
+    steps?: any;
+  }
+
 /* Set job */
 export interface Job {
-  id?: string;
+  id?: number;
   title?: string;
   created_at?: Date;
   updated_at?: Date;
   cover?: any;
+  slug?: string;
   steps?: any;
-  interest: any;
+  interest: Interest;
 }
 
 export const SET_JOB = '[Job] Set Job';
@@ -79,12 +84,7 @@ export const SET_GUIDES_LOADING_ERROR = '[Job] Set Guides Loading Error';
 export interface SetGuidesAction extends Action {
   payload: {
     results?: Guide[];
-    pagination?: {
-      count: number;
-      per_page: number;
-      current_page: number;
-      total_pages: number;
-    };
+    pagination?: PaginationInfo;
   };
 }
 export function searchJobQuestions(jobId, params = {}) {
@@ -146,8 +146,20 @@ export const SET_SUGGESTIONS = '[Job] Set Suggestions';
 export const SET_SUGGESTIONS_LOADING_ERROR = '[Job] Set Suggestions Loading Error';
 export interface SetSuggestionsAction extends Action {
   payload: {
-    results?: any;
+    results?: {
+      searched_interests: Interest[],
+      searched_careers: Job[]
+    };
   };
+}
+
+export interface Suggestion {
+  type: string;
+  index: number;
+  value: string;
+  id: number;
+  slug: string;
+  numberOfRemaining?: number;
 }
 
 export function loadSuggestions(params) {

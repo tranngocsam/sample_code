@@ -1,16 +1,16 @@
 <form role="form" method="POST" class="login-form" (ngSubmit)="onSubmit()">
   <legend>Login</legend>
-  <div class="form-group" [ngClass]="{'has-error': submitted && !user.login}">
-    <input type="text" [(ngModel)]="user.login" name="login" placeholder="Enter Email" class="form-control" />
-    <div class="help-block" [hidden]="submitted && !user.login">This field is required</div>
+  <div class="form-group" [ngClass]="{'has-error': submitted && !form.login}">
+    <input type="text" [(ngModel)]="form.login" name="login" placeholder="Enter Email" class="form-control" />
+    <div class="help-block" [hidden]="submitted && !form.login">This field is required</div>
   </div>
-  <div class="form-group" [ngClass]="{'has-error': submitted && !user.password}">
-    <input type="password" [(ngModel)]="user.password" name="password" placeholder="Enter Password" class="form-control" />
-    <div class="help-block" [hidden]="submitted && !user.password">This field is required</div>
+  <div class="form-group" [ngClass]="{'has-error': submitted && !form.password}">
+    <input type="password" [(ngModel)]="form.password" name="password" placeholder="Enter Password" class="form-control" />
+    <div class="help-block" [hidden]="submitted && !form.password">This field is required</div>
   </div>
   <div class="form-group">
     <div class="checkbox checkbox-primary remember-me ibl">
-      <input type="checkbox" id="remember_me" />
+      <input type="checkbox" name="remember_me" [(ngModel)]="form.remember_be" id="remember_me" />
       <label htmlFor="remember_me">Remember me</label>
     </div>
     <div class="pull-right forgot-password">

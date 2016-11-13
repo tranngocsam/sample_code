@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import store from '../../app-store';
+import { User } from "../../actions/user-actions";
 
 @Component({
   selector: 'page-header',
@@ -8,7 +9,7 @@ import store from '../../app-store';
 })
 
 export class PageHeaderComponent {
-  currentUser = null;
+  currentUser: User;
   constructor() {
     let _this = this;
     store.subscribe(function() {

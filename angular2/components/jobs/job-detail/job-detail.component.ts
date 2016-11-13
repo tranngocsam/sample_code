@@ -4,6 +4,8 @@ import { Router, Params, ActivatedRoute } from '@angular/router';
 import Career from "../../../models/career";
 import { searchJobQuestions, loadJob, loadJobGuides } from "../../../actions/career-actions";
 import { Util } from "../../../utils/util";
+import { User } from "../../../actions/user-actions";
+import { Job, Guide, Question, PaginationInfo } from "../../../actions/career-actions";
 
 @Component({
   selector: 'job-detail',
@@ -11,14 +13,14 @@ import { Util } from "../../../utils/util";
 })
 
 export class JobDetailComponent implements OnInit {
-  currentUser = null;
+  currentUser: User = null;
   slug: string;
-  career: any;
+  career: Job;
   careerPaths: any;
-  guides: any;
-  guidesPaginationInfo: any;
-  questions: any;
-  questionsPaginationInfo: any;
+  guides: Guide[];
+  guidesPaginationInfo: PaginationInfo;
+  questions: Question[];
+  questionsPaginationInfo: PaginationInfo;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     store.subscribe(() => {
@@ -41,21 +43,21 @@ export class JobDetailComponent implements OnInit {
      });
   }
 
-  loadJob(id) {
+  loadJob(id: string) {
     var params:any = {};
     params.include = JSON.stringify(["career_wages", "career_job_bios", "sections", "career_job_synonyms", "steps", {interest: {include: ["steps"]}}]);
 
     loadJob(id, params);
   }
 
-  loadGuides(id) {
+  loadGuides(id: string) {
     var params: any = {};
     params.include = JSON.stringify([]);
 
     loadJobGuides(id, params);
   }
 
-  searchQuestions(id, page = undefined, perPage = undefined) {
+  searchQuestions(id: string, page: number = undefined, perPage: number = undefined) {
     var params: any = {};
     params.page = page || 1;
     params.per_page = perPage || 10;

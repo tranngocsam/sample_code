@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import store from '../../../app-store';
+import { User } from "../../../actions/user-actions";
 
 @Component({
   selector: 'sub-navigation',
@@ -7,7 +8,7 @@ import store from '../../../app-store';
 })
 
 export class SubNavigationComponent {
-  currentUser = null;
+  currentUser: User;
   constructor() {
     store.subscribe(function() {
       this.currentUser = store.getState().users.currentUser;

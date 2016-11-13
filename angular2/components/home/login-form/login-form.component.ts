@@ -1,7 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import store from '../../../app-store';
 import { Router } from '@angular/router';
-import { login } from "../../../actions/user-actions";
+import { login, User } from "../../../actions/user-actions";
+
+interface LoginForm {
+  login: string;
+  password: string;
+  remember_me?: boolean
+}
 
 @Component({
   selector: 'login-form',
@@ -9,9 +15,10 @@ import { login } from "../../../actions/user-actions";
 })
 
 export class LoginFormComponent {
-  currentUser = null;
-  submitted = false;
-  user: any = {};
+  currentUser: User = null;
+  submitted: boolean = false;
+  form: LoginForm = {login: "", password: ""};
+
   constructor(private router: Router) {
     store.subscribe(function() {
       this.currentUser = store.getState().users.currentUser;
@@ -23,8 +30,8 @@ export class LoginFormComponent {
 
   onSubmit() {
     this.submitted = true;
-    if (this.user.login && this.user.password) {
-      login(this.user);
+    if (this.form.login && this.form.password) {
+      login(this.form);
     }
   }
 }

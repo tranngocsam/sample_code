@@ -18,6 +18,7 @@ export interface CareersState {
   guidesPaginationInfo: any;
   questions: any;
   questionsPaginationInfo: any;
+  suggestions: any;
 };
 
 const initialState: CareersState = {
@@ -26,7 +27,8 @@ const initialState: CareersState = {
   guides: undefined,
   guidesPaginationInfo: undefined,
   questions: undefined,
-  questionsPaginationInfo: undefined
+  questionsPaginationInfo: undefined,
+  suggestions: undefined
 };
 
 export const CareersReducer =
@@ -95,7 +97,7 @@ export const CareersReducer =
       if (results.searched_interests) {
         for (let i = 0; i < results.searched_interests.length; i++) {
           let interest = results.searched_interests[i];
-          let r:any = {type: "Interest", index: i, value: interest.title, id: interest.id, slug: interest.slug};
+          let r: CareerActions.Suggestion = {type: "Interest", index: i, value: interest.title, id: interest.id, slug: interest.slug};
 
           if (i < numberOfVisibleInterests - 1) {
             searchResults.push(r);
@@ -113,7 +115,7 @@ export const CareersReducer =
       if (results.searched_careers) {
         for(let i = 0; i < results.searched_careers.length; i++) {
           let career = results.searched_careers[i];
-          let r: any = {type: "Career", index: i, value: career.title, id: career.id, slug: career.slug};
+          let r: CareerActions.Suggestion = {type: "Career", index: i, value: career.title, id: career.id, slug: career.slug};
 
           if (i < numberOfVisibleCareers - 1) {
             searchResults.push(r);

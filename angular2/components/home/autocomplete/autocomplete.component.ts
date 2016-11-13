@@ -1,5 +1,6 @@
-import {Component, ElementRef, Input, Output, EventEmitter} from '@angular/core';
+import { Component, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { Suggestion } from "../../../actions/career-actions"
 
 @Component({
     selector: 'autocomplete',
@@ -9,9 +10,9 @@ import { Router } from '@angular/router';
     template: `
         <div class="container autocomplete-container" >
           <div class="form-group">
-            <input id="country" type="text" class="form-control" placeholder="Enter a keyword" [(ngModel)]="query" (keyup)="filter($event)" (blur)="handleBlur()" />
+            <input id="country" type="text" class="form-control" placeholder="Enter a keyword" [(ngModel)]="query" (keyup)="filter($event)" (focus)="handleFocus()" (blur)="handleBlur()" />
           </div>
-          <div class="suggestions" *ngIf="options && options.length > 0">
+          <div class="suggestions" *ngIf="options && options.length > 0 && showOptions">
             <ul class="list-unstyled">
               <li *ngFor="let item of options; let idx = index">
                 <a href="#" (click)="select(item, $event)">{{item.value}}</a>
@@ -23,13 +24,11 @@ import { Router } from '@angular/router';
 })
 
 export class AutocompleteComponent {
-    public query = '';
-    public filteredList = [];
-    public showOptions = false;
-    public elementRef;
-    renderedOptions: any;
+    public query: string = '';
+    public showOptions: boolean = false;
+    public elementRef: ElementRef;
 
-    @Input() public options: any;
+    @Input() public options: Suggestion[];
     @Input() public isLoading: boolean;
     @Output() public onKeyup: EventEmitter<any> = new EventEmitter();
 
@@ -40,40 +39,45 @@ export class AutocompleteComponent {
       this.selectedIdx = -1;
     }
 
-    filter(event: any) {
+    filter(event: KeyboardEvent) {
       this.showOptions = true;
       if (event.code == "ArrowDown" && this.selectedIdx < this.options.length) {
         this.selectedIdx++;
       } else if (event.code == "ArrowUp" && this.selectedIdx > 0) {
         this.selectedIdx--;
       } else if (event.code == "Enter") {
-        this.router.navigate(["jobs/search?term=" + this.query]);
+        // this.router.navigate(["jobs/search", {term: this.query}]);
       } else {
         this.onKeyup.emit(event);
       }
     }
 
-    select(item, event) {
+    select(item: Suggestion, event: MouseEvent) {
       event.preventDefault();
-      this.query = item;
-      this.filteredList = [];
-      this.showOptions = false;
+      this.query = item.value;
       this.selectedIdx = -1;
       this.router.navigate(["jobs/" + item.slug]);
     }
 
+    handleFocus() {
+      this.showOptions = true;
+    }
+
     handleBlur() {
       if (this.selectedIdx > -1 && this.options && this.options.length > 0) {
-        // this.query = this.filteredList[this.selectedIdx];
-        this.query = this.options[this.selectedIdx];
+        let suggestion: Suggestion = this.options[this.selectedIdx];
+
+        if (suggestion) {
+          this.query = suggestion.value;
+        }
       }
-      this.filteredList = [];
-      this.showOptions = false;
+
+      setTimeout(()=> this.showOptions = false, 500);
       this.selectedIdx = -1;
     }
 
-    handleClick(event) {
-      var clickedComponent = event.target;
+    handleClick(event: MouseEvent) {
+      var clickedComponent: Node = <Node>event.target;
       var inside = false;
       do {
         if (clickedComponent === this.elementRef.nativeElement) {
@@ -81,8 +85,8 @@ export class AutocompleteComponent {
         }
         clickedComponent = clickedComponent.parentNode;
       } while (clickedComponent);
+
       if (!inside) {
-        this.filteredList = [];
         this.showOptions = false;
       }
       this.selectedIdx = -1;

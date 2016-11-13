@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject } from '@angular/core';
 import Career from "../../../models/career";
 import store from '../../../app-store';
+import { Suggestion } from "../../../actions/career-actions";
 import * as Rx from 'rxjs/Rx';
 import { loadSuggestions } from "../../../actions/career-actions";
 
@@ -10,7 +11,7 @@ import { loadSuggestions } from "../../../actions/career-actions";
 })
 export class PrimaryBannerComponent {
   elementRef: ElementRef;
-  results = [];
+  results: Suggestion[] = [];
 
   constructor(@Inject(ElementRef) elementRef: ElementRef) {
     let _this = this;
@@ -21,8 +22,8 @@ export class PrimaryBannerComponent {
     });
   }
 
-  onKeyup(event) {
-    let value = event.target.value;
+  onKeyup(event: KeyboardEvent) {
+    let value: string = (<HTMLInputElement>event.target).value;
     if (value.length > 1) {
       let params: any = {};
       params["search[term]"] = value;
@@ -32,7 +33,7 @@ export class PrimaryBannerComponent {
     }
   }
 
-  openExamples(event) {
+  openExamples(event: MouseEvent) {
     if (event) {
       event.preventDefault();
     }

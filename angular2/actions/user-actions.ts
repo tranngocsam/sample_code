@@ -1,26 +1,14 @@
-/**
- * Copyright 2016, Fullstack.io, LLC.
- *
- * This source code is licensed under the MIT-style license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-import {
-  Action,
-  ActionCreator
-} from 'redux';
-
-import {
-  User
-} from '../models/user';
-
+import { Action, ActionCreator } from 'redux';
 import store from '../app-store';
 import UserSession from "../models/user-session";
 
-/**
- * UserActions specifies action creators concerning Users
- */
+
+export interface User {
+  id: string;
+  name: string;
+  avatarSrc: string;
+  isClient?: boolean;
+}
 export const SET_CURRENT_USER = '[User] Set Current';
 export interface SetCurrentUserAction extends Action {
   payload: User;
