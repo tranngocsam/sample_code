@@ -22,8 +22,8 @@ export class PrimaryBannerComponent {
     });
   }
 
-  onKeyup(event: KeyboardEvent) {
-    let value: string = (<HTMLInputElement>event.target).value;
+  onKeyup(value: string) {
+    // let value: string = (<HTMLInputElement>event.target).value;
     if (value.length > 1) {
       let params: any = {};
       params["search[term]"] = value;

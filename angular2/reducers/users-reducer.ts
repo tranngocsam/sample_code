@@ -7,7 +7,6 @@
  */
 
 import { Action } from 'redux';
-import { User } from '../models/user';
 import * as UserActions from '../actions/user-actions';
 import { createSelector } from 'reselect';
 
@@ -16,7 +15,7 @@ import { createSelector } from 'reselect';
  * the reducer, and the selectors.
  */
 export interface UsersState {
-  currentUser: User;
+  currentUser: UserActions.User;
 };
 
 const initialState: UsersState = {
